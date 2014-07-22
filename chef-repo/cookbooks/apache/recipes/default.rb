@@ -21,6 +21,6 @@ service 'httpd' do
 end
 
 cookbook_file '/var/www/html/index.html' do
-  source 'index.html'
+  source node.default['apache']['indexfile']
   mode '0644'
 end
