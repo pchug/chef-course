@@ -7,5 +7,11 @@ default_attributes({
     "sites" => {
       "admin" => {
         "port" => 8000
-}}}})
+      },
+      "bears" => {
+        "port" => 8081
+      }
+    }
+  }
+})
 
