@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <h1>Welcome to <%= node['motd']['company'] %></h1>
+    We love <%= @site_name %><br/>
+
+    <hr/>
+    <%= node['ipaddress'] %>:<%= @port %>
+
+  </body>
+</html>
