@@ -1,11 +1,3 @@
-#
-# Cookbook Name:: nginx
-# Recipe:: default
-#
-# Copyright 2014, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
 
 # make a safe download directory
 directory node['nginx']['download_path'] do
@@ -34,12 +26,19 @@ bash "untar src code" do
   action    :run
 end
 
-package "gcc" do
-  action      :install
+%w{gcc pcre-devel zlib-devel}.each do |pkg|
+  package pkg do
+    action      :install
+  end
 end
 
-bash "magic" do
+bash "configure" do
   cwd	     "#{node['nginx']['download_path']}/#{src_directory}"
   user	     "root"
-  code	     "./configure"
+  code	     <<-EOC
+  if [ ! -f Makefile ]; then ./configure --prefix=#{node['nginx']['prefix']}; fi
+  make
+  make install
+  EOC
 end
+
